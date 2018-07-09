@@ -6,12 +6,13 @@
 	<script type="text/javascript" src="./instafeed.js-master/instafeed.min.js"></script>
 	
 	<script type="text/javascript">
-		var feed = new Instafeed({
-			get: 'tagged',
-			tagName: 'awesome',
-			clientId: '89609fd71340482db5086c6add25dd10'
+		var userFeed = new Instafeed({
+			get: 'user',
+			userId: '1384889485',
+			//50 hertz userID: 4109159490
+			accessToken: '1384889485.1677ed0.8b6beaad74544bc799e81a67d5fc1946'
 		});
-		feed.run();
+		userFeed.run();
 	</script>
 	</head>
 	<body>
