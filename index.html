@@ -1,0 +1,21 @@
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title> Random Insta Images </title>
+	<script src="randomInstaImages.js"></script>
+	<script type="text/javascript" src="./instafeed.js-master/instafeed.min.js"></script>
+	
+	<script type="text/javascript">
+		var feed = new Instafeed({
+			get: 'tagged',
+			tagName: 'awesome',
+			clientId: '89609fd71340482db5086c6add25dd10'
+		});
+		feed.run();
+	</script>
+	</head>
+	<body>
+	<div id="instafeed"></div>
+	</body>
+</html>
+</html>
