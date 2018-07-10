@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 	<head>
 	<meta charset="utf-8">
 	<title> Random Insta Images </title>
@@ -6,17 +6,85 @@
 	<script type="text/javascript" src="./instafeed.js-master/instafeed.min.js"></script>
 	
 	<script type="text/javascript">
-		var userFeed = new Instafeed({
+		var IDs = [];		
+		var randomImageID = 0;
+		var testFeed = new Instafeed({
 			get: 'user',
 			userId: '1384889485',
+			//sortBy: 'random',
+			//resolution: 'standard_resolution',
+			//target: 'whatever',
+			filter: function(image) {	
+					IDs.push(image.id);
+					/*//i++;
+					
+					random = Math.floor(random * (IDs.length + 1))
+					if(image.id == IDs[random]) {
+						return true;
+					}else{
+						return false;
+					}		*/
+					
+					document.getElementById("id_list").innerHTML += image.id + "," + "<br>"
+					return false;					
+			},	
+			
+			after: function () {				
+				randomImageID = IDs[Math.floor(Math.random() * (IDs.length))];
+				document.getElementById("id_list").innerHTML += "chosen ID:" + "<br>";
+				document.getElementById("id_list").innerHTML += randomImageID + "," + "<br>";
+				userFeed.run();
+			},		
+			template: '<a>{{id}}<img src="{{image}}" /></a>',
+			//print(MediaID);
+			//document.getElementById("alltext").value +: MediaID,
+			//Console.print(MediaID),
 			//50 hertz userID: 4109159490
 			accessToken: '1384889485.1677ed0.8b6beaad74544bc799e81a67d5fc1946'
 		});
-		userFeed.run();
+		
+		var userFeed = new Instafeed({
+			get: 'user',
+			userId: '1384889485',
+			//sortBy: 'random',
+			//resolution: 'standard_resolution',
+			//target: 'whatever',
+			filter: function(image) {	
+					document.getElementById("id_list").innerHTML += image.id + "," + "<br>"
+					if(image.id == randomImageID) {
+						document.getElementById("id_list").innerHTML += ">>>>>true<<<<<" + "<br>"
+						return true;						
+					}else{
+						document.getElementById("id_list").innerHTML += "false" + "<br>"
+						return false;
+					}							
+			},	
+			
+			after: function () {
+				//document.getElementById("id_list").innerHTML += "after," + "<br>"
+			},
+			success: function (data) {
+				//document.getElementById("id_list").innerHTML += "success," + "<br>"
+			},
+			/*before: function (data) {
+				document.getElementById("id_list").innerHTML += "before," + "<br>"
+			},*/
+			template: '<a>{{id}}<img src="{{image}}" /></a>',
+			//print(MediaID);
+			//document.getElementById("alltext").value +: MediaID,
+			//Console.print(MediaID),
+			//50 hertz userID: 4109159490
+			accessToken: '1384889485.1677ed0.8b6beaad74544bc799e81a67d5fc1946'
+		});
+		testFeed.run();
+		
+		//Console.print(MediaID);
+		//print(MediaID);
 	</script>
 	</head>
 	<body>
-	<div id="instafeed"></div>
+	<div id="instafeed" style="align:center; border:40px solid gray"></div>
+	<canvas id="whatever"></canvas>
+	<p id="id_list"></p>
 	</body>
-</html>
 </html>
