@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-	<head>
-		<style>
-			div {
-				-webkit-filter: blur(4px); /* Safari 6.0 - 9.0 */
-				filter: blur(4px);
-				filter: progid: DXImageTransform.Microsoft.Blur(PixelRadius='4');
-			}
-		</style>
+	<head>		
 	</head>
-	<body>
-		<div id="instafeed" align="center"></div>
+	<body style="margin: 0;">
+		<svg id="sine" style="z-index: 0" height="2000"></svg>
+		<div id="instafeed" align="center" style="z-index: 1"></div>
 		<meta charset="utf-8">
 		<title>Loading EDB - Please wait</title>
 		<script type="text/javascript" src="./instafeed.js-master/instafeed.min.js"></script>
 		<script type="text/javascript" src="./randomInstaImage.js"></script>
+		<script type="text/javascript" src="./graphics.js"></script>
+		<link link rel="stylesheet" type="text/css" href="animation.css"></link>
 	</body>
 </html>

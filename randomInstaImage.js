@@ -20,7 +20,7 @@ var userFeed = new Instafeed({
 	get: 'user',
 	userId: user_id,
 	resolution: 'standard_resolution',
-	template: '<img id="picture" src="{{image}}" filter: blur(5px)></img>',
+	template: '<img id="picture" src="{{image}}"></img>',
 	filter: function(image) {
 		if(image.id == randomImageID) {
 			return true;			
@@ -28,8 +28,9 @@ var userFeed = new Instafeed({
 			return false;
 		}
 	},
-	after: function () {		
-		document.getElementById("picture").height = window.innerHeight * 0.96;
+	after: function () {
+		document.getElementById("picture").style.border = (window.innerHeight * 0.1) + "px solid transparent";
+		document.getElementById("picture").height = window.innerHeight * 0.8;
 	},
 	accessToken: token
 });
