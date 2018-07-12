@@ -1,4 +1,6 @@
-var lines = (Math.random() * 4 + 1);
+var sines = (Math.random() * 3 + 1);
+var lines = 0;
+var count = 0;
 var colors = ["#46535B", "#818A8F", "#D5D6D3", "#F0801A", "#E75420", "#991A39", "#6AA998", "#258998", "#98B8BF"];
 var shift = [];
 var speed = [];
@@ -14,34 +16,50 @@ for(var i = 0; i < 5; i++){
 }
 move();
 function move() {
-	document.getElementById("sine").innerHTML = "";
-	for(var i = 0; i < lines; i++){
+	document.getElementById("sine").parentNode.removeChild(document.getElementById("sine"));
+	var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	svg.setAttribute("id", "sine");
+	svg.setAttribute("style", "z-index: 0");
+	svg.setAttribute("height", "2000");
+	document.body.appendChild(svg);
+	for(var i = 0; i < sines; i++){
+		
 		createWave(amplitude[i], wavelength[i], shift[i], color[i]);
 		shift[i] = shift[i] + speed[i];
 	}
-	setTimeout(move, 200);
+	if(!(!!window.StyleMedia)){
+		setTimeout(move, 30);
+	}
 }
 function createWave (amplitude, wavelength, shift, color){
 	var i = 0;
-	var step = wavelength / 5;
+	if(!(!!window.StyleMedia)){
+		var step = wavelength / 5;
+	}else{
+		var step = wavelength / 30;
+	}
+	
 	do{
 		line(
+			"line" + lines,
 			i - step,
 			(Math.sin((i - step - shift) / wavelength) * amplitude) + (window.innerHeight / 2),
 			i,
 			(Math.sin((i - shift) / wavelength) * amplitude) + (window.innerHeight / 2),
 			color
 		);
+		lines++;
 		i = i + step;
 	}while((i - step) < window.innerWidth)
 }
-function line(x1, y1, x2, y2, color) {
-	var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line'); //Create a path in SVG's namespace
-	newElement.setAttribute("x1", x1);
-	newElement.setAttribute("y1", y1);
-	newElement.setAttribute("x2", x2);
-	newElement.setAttribute("y2", y2);
-	newElement.style.stroke = color; //Set stroke colour
-	newElement.style.strokeWidth = window.innerHeight * 0.006; //Set stroke width
-	document.getElementById("sine").appendChild(newElement);
+function line(id, x1, y1, x2, y2, color) {
+	var newLine = document.createElementNS("http://www.w3.org/2000/svg", "line"); //Create a path in SVG"s namespace
+	newLine.setAttribute("x1", x1);
+	newLine.setAttribute("y1", y1);
+	newLine.setAttribute("x2", x2);
+	newLine.setAttribute("y2", y2);
+	newLine.setAttribute("id", id);
+	newLine.style.stroke = color; //Set stroke colour
+	newLine.style.strokeWidth = window.innerHeight * 0.006; //Set stroke width
+	document.getElementById("sine").appendChild(newLine);
 }
